@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cfd9c76cb62f47fb8348aba1beee623e" Name="Diagram1">
+        <EntityTypeShape EntityType="DREAModel.Documento" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DREAModel.DocumentoDet" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DREAModel.Oficina" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DREAModel.TipoDoc" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DREAModel.Usuario" Width="1.5" PointX="5.375" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="DREAModel.FK__Documento__Docum__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="DREAModel.FK__Documento__Ofici__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="DREAModel.FK__Documento__TipoD__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="DREAModel.FK__Documento__Usuar__3F466844" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

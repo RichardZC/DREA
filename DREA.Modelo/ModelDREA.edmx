@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DREAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="DocumentoId" />
+          </Key>
+          <Property Name="DocumentoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NroDoc" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="TipoDocId" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Estado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="OficinaId" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentoDet">
+          <Key>
+            <PropertyRef Name="DocumentoDetId" />
+          </Key>
+          <Property Name="DocumentoDetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Archivo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DocumentoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oficina">
+          <Key>
+            <PropertyRef Name="OficinaId" />
+          </Key>
+          <Property Name="OficinaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoDoc">
+          <Key>
+            <PropertyRef Name="TipoDocId" />
+          </Key>
+          <Property Name="TipoDocId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="Rol" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Documento__Docum__4222D4EF">
+          <End Role="Documento" Type="Self.Documento" Multiplicity="1" />
+          <End Role="DocumentoDet" Type="Self.DocumentoDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documento">
+              <PropertyRef Name="DocumentoId" />
+            </Principal>
+            <Dependent Role="DocumentoDet">
+              <PropertyRef Name="DocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documento__Ofici__3E52440B">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Documento" Type="Self.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="OficinaId" />
+            </Principal>
+            <Dependent Role="Documento">
+              <PropertyRef Name="OficinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documento__TipoD__3D5E1FD2">
+          <End Role="TipoDoc" Type="Self.TipoDoc" Multiplicity="1" />
+          <End Role="Documento" Type="Self.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDoc">
+              <PropertyRef Name="TipoDocId" />
+            </Principal>
+            <Dependent Role="Documento">
+              <PropertyRef Name="TipoDocId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documento__Usuar__3F466844">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Documento" Type="Self.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Documento">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DREAModelStoreContainer">
+          <EntitySet Name="Documento" EntityType="Self.Documento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentoDet" EntityType="Self.DocumentoDet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oficina" EntityType="Self.Oficina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoDoc" EntityType="Self.TipoDoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Documento__Docum__4222D4EF" Association="Self.FK__Documento__Docum__4222D4EF">
+            <End Role="Documento" EntitySet="Documento" />
+            <End Role="DocumentoDet" EntitySet="DocumentoDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documento__Ofici__3E52440B" Association="Self.FK__Documento__Ofici__3E52440B">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Documento" EntitySet="Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documento__TipoD__3D5E1FD2" Association="Self.FK__Documento__TipoD__3D5E1FD2">
+            <End Role="TipoDoc" EntitySet="TipoDoc" />
+            <End Role="Documento" EntitySet="Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documento__Usuar__3F466844" Association="Self.FK__Documento__Usuar__3F466844">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Documento" EntitySet="Documento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DREAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Documento">
+          <Key>
+            <PropertyRef Name="DocumentoId" />
+          </Key>
+          <Property Name="DocumentoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NroDoc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TipoDocId" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="OficinaId" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DocumentoDet" Relationship="Self.FK__Documento__Docum__4222D4EF" FromRole="Documento" ToRole="DocumentoDet" />
+          <NavigationProperty Name="Oficina" Relationship="Self.FK__Documento__Ofici__3E52440B" FromRole="Documento" ToRole="Oficina" />
+          <NavigationProperty Name="TipoDoc" Relationship="Self.FK__Documento__TipoD__3D5E1FD2" FromRole="Documento" ToRole="TipoDoc" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Documento__Usuar__3F466844" FromRole="Documento" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="DocumentoDet">
+          <Key>
+            <PropertyRef Name="DocumentoDetId" />
+          </Key>
+          <Property Name="DocumentoDetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Archivo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DocumentoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Documento" Relationship="Self.FK__Documento__Docum__4222D4EF" FromRole="DocumentoDet" ToRole="Documento" />
+        </EntityType>
+        <EntityType Name="Oficina">
+          <Key>
+            <PropertyRef Name="OficinaId" />
+          </Key>
+          <Property Name="OficinaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Documento" Relationship="Self.FK__Documento__Ofici__3E52440B" FromRole="Oficina" ToRole="Documento" />
+        </EntityType>
+        <EntityType Name="TipoDoc">
+          <Key>
+            <PropertyRef Name="TipoDocId" />
+          </Key>
+          <Property Name="TipoDocId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Documento" Relationship="Self.FK__Documento__TipoD__3D5E1FD2" FromRole="TipoDoc" ToRole="Documento" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Rol" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Documento" Relationship="Self.FK__Documento__Usuar__3F466844" FromRole="Usuario" ToRole="Documento" />
+        </EntityType>
+        <Association Name="FK__Documento__Docum__4222D4EF">
+          <End Role="Documento" Type="Self.Documento" Multiplicity="1" />
+          <End Role="DocumentoDet" Type="Self.DocumentoDet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documento">
+              <PropertyRef Name="DocumentoId" />
+            </Principal>
+            <Dependent Role="DocumentoDet">
+              <PropertyRef Name="DocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documento__Ofici__3E52440B">
+          <End Role="Oficina" Type="Self.Oficina" Multiplicity="1" />
+          <End Role="Documento" Type="Self.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oficina">
+              <PropertyRef Name="OficinaId" />
+            </Principal>
+            <Dependent Role="Documento">
+              <PropertyRef Name="OficinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documento__TipoD__3D5E1FD2">
+          <End Role="TipoDoc" Type="Self.TipoDoc" Multiplicity="1" />
+          <End Role="Documento" Type="Self.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoDoc">
+              <PropertyRef Name="TipoDocId" />
+            </Principal>
+            <Dependent Role="Documento">
+              <PropertyRef Name="TipoDocId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Documento__Usuar__3F466844">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Documento" Type="Self.Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Documento">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DREAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Documento" EntityType="Self.Documento" />
+          <EntitySet Name="DocumentoDet" EntityType="Self.DocumentoDet" />
+          <EntitySet Name="Oficina" EntityType="Self.Oficina" />
+          <EntitySet Name="TipoDoc" EntityType="Self.TipoDoc" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Documento__Docum__4222D4EF" Association="Self.FK__Documento__Docum__4222D4EF">
+            <End Role="Documento" EntitySet="Documento" />
+            <End Role="DocumentoDet" EntitySet="DocumentoDet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documento__Ofici__3E52440B" Association="Self.FK__Documento__Ofici__3E52440B">
+            <End Role="Oficina" EntitySet="Oficina" />
+            <End Role="Documento" EntitySet="Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documento__TipoD__3D5E1FD2" Association="Self.FK__Documento__TipoD__3D5E1FD2">
+            <End Role="TipoDoc" EntitySet="TipoDoc" />
+            <End Role="Documento" EntitySet="Documento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Documento__Usuar__3F466844" Association="Self.FK__Documento__Usuar__3F466844">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Documento" EntitySet="Documento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DREAModelStoreContainer" CdmEntityContainer="DREAEntities">
+          <EntitySetMapping Name="Documento">
+            <EntityTypeMapping TypeName="DREAModel.Documento">
+              <MappingFragment StoreEntitySet="Documento">
+                <ScalarProperty Name="DocumentoId" ColumnName="DocumentoId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NroDoc" ColumnName="NroDoc" />
+                <ScalarProperty Name="TipoDocId" ColumnName="TipoDocId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="OficinaId" ColumnName="OficinaId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentoDet">
+            <EntityTypeMapping TypeName="DREAModel.DocumentoDet">
+              <MappingFragment StoreEntitySet="DocumentoDet">
+                <ScalarProperty Name="DocumentoDetId" ColumnName="DocumentoDetId" />
+                <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+                <ScalarProperty Name="DocumentoId" ColumnName="DocumentoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oficina">
+            <EntityTypeMapping TypeName="DREAModel.Oficina">
+              <MappingFragment StoreEntitySet="Oficina">
+                <ScalarProperty Name="OficinaId" ColumnName="OficinaId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoDoc">
+            <EntityTypeMapping TypeName="DREAModel.TipoDoc">
+              <MappingFragment StoreEntitySet="TipoDoc">
+                <ScalarProperty Name="TipoDocId" ColumnName="TipoDocId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="DREAModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
