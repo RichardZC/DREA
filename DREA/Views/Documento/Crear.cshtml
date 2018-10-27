@@ -1,0 +1,22 @@
+﻿<h2>Crear Documento</h2>
+<form action="@Url.Action("Guardar","Documento")" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" name="Nombre" class="form-control" placeholder="Nombre">
+        </div>
+        <div class="col-md-6">
+            <input type="text" name="NroDoc" class="form-control" placeholder="Nro Doc">
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownList("TipoDocId", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6">
+            @Html.DropDownList("OficinaId", null, new { @class = "form-control" })
+        </div>
+        <br />
+        <div class="col-md-12 text-right">
+            <br />
+            <button type="submit" class="btn btn-primary right">Crear Documento</button>
+        </div>
+    </div>
+</form>

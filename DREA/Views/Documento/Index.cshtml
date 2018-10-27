@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DREA.Modelo.Documento>
+
+<h2>Lista de Documentos</h2>
+
+<p>
+    @Html.ActionLink("Crear Documento", "Crear")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NroDoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Oficina.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoDoc.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NroDoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Oficina.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoDoc.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DocumentoId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DocumentoId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DocumentoId })
+        </td>
+    </tr>
+}
+
+</table>
