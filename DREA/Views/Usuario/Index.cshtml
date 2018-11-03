@@ -1,51 +1,54 @@
-﻿@model IEnumerable<DREA.Modelo.Usuario>
+﻿@model List<DREA.Modelo.Usuario>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p>    
+    <a href="@Url.Action("Create","Usuario")" class="btn btn-sm btn-indigo">Nuevo Usuario</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Clave)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rol)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Clave)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rol)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UsuarioId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UsuarioId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UsuarioId })
-        </td>
-    </tr>
-}
 
-</table>
+<section>
+
+    <div class="card">
+        <div class="card-body">
+
+            <!--Table-->
+            <table class="table table-hover">
+
+                <!--Table head-->
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Clave</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <th scope="row">@item.UsuarioId</th>
+                        <td>@item.Nombre</td>
+                        <td>@item.Clave</td>
+                        <td>@item.Rol</td>
+                        <td>@item.Estado</td>
+                        <td>
+                            <a href="@Url.Action("Edit","Usuario",new { id = item.UsuarioId })" class="btn btn-sm btn-indigo">Editar</a>
+
+                            
+                        </td>
+                    </tr>
+                    }                   
+                    
+                </tbody>
+                <!--Table body-->
+            </table>
+            <!--Table-->
+
+        </div>
+    </div>
+
+</section>
