@@ -12,7 +12,7 @@ namespace DREA.Controllers
     {
         public ActionResult Index()
         {
-            return View(DocumentoBL.Listar());
+            return View(DocumentoBL.Listar(includeProperties:"TipoDoc,Oficina"));
         }
         public ActionResult Crear()
         {
@@ -33,6 +33,29 @@ namespace DREA.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        public ActionResult Editar(int id)
+        {
+            var doc = DocumentoBL.Obtener(id);
+            ViewBag.TipoDocId = new SelectList(TipoDocBL.Listar(), "TipoDocId", "Nombre");
+            ViewBag.OficinaId = new SelectList(OficinaBL.Listar(), "OficinaId", "Nombre");
+
+            return View(doc);
+        }
+        [HttpPost]
+        public ActionResult Actualizar(Documento doc)
+        {
+            // DocumentoBL.Actualizar(doc);
+            DocumentoBL.ActualizarParcial(new Documento
+            {
+                DocumentoId = doc.DocumentoId,
+                Nombre = doc.Nombre,
+                NroDoc = doc.NroDoc,
+                TipoDocId = doc.TipoDocId,
+                OficinaId = doc.OficinaId
+            }, x => x.Nombre, x => x.TipoDocId, x => x.OficinaId, x => x.NroDoc);
+
+
+            return RedirectToAction("Index");
+        }
     }
 }

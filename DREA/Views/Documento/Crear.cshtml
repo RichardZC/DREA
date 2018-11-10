@@ -7,8 +7,11 @@
         <div class="col-md-6">
             <input type="text" name="NroDoc" class="form-control" placeholder="Nro Doc">
         </div>
+
+        @*@Html.DropDownList("TipoDocId", null, new { @class = "form-control" })*@
+
         <div class="col-md-6">
-            @Html.DropDownList("TipoDocId", null, new { @class = "form-control" })
+            @Html.DropDownList("TipoDocId", null, new { @class = "form-control", style="display:"})
         </div>
         <div class="col-md-6">
             @Html.DropDownList("OficinaId", null, new { @class = "form-control" })
