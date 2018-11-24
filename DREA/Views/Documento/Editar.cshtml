@@ -115,11 +115,24 @@
             })
         });
 
-    function CargarAdjuntos() {
-
-            @*$("#adjuntos-cargados").load("@Url.Content("~/Admin/Producto/adjuntos?ProductoId=" + Model.ProductoId)");*@
-
+    function CargarAdjuntos() {        
+            $("#adjuntos-cargados").load("@Url.Content("~/Documento/adjuntos?DocumentoId=" + Model.DocumentoId)");
     }
+    function EliminarImagen(DocumentoDetId) {
+            $.ajax({
+                data: { DocumentoDetId: DocumentoDetId },
+                url: '@Url.Action("EliminarDocumento","Documento")',
+                type: 'post',
+                success: function (r) {
+                    if (r.respuesta) {
+                        CargarAdjuntos();
+                    }
+                    else
+                        alert(r.error);
+                },
+                error: function (jqXHR, textStatus, errorThrown) { alert(errorThrown); }
+            });
+        }
 
     </script>
     

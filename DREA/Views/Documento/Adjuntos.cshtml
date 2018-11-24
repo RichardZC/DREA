@@ -1,0 +1,18 @@
+﻿@model List<DREA.Modelo.DocumentoDet>
+
+<div class="row">
+    @foreach (var i in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <a href="~/Documentos/@i.Archivo" class="thumbnail" target="_blank">
+                <img src="~/img/doc.png" style="width:100px; height:100px" />                
+            </a>
+            <p class="text-center"><a href="#" class="btn btn-danger" role="button" onclick="EliminarImagen(@i.DocumentoDetId)">Eliminar</a></p>
+        </div>
+    }
+</div>
+
+
+
+
+

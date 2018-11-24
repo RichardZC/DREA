@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DREA.Dominio;
 using DREA.Modelo;
+using DREA.Models;
 
 namespace DREA.Controllers
 {
@@ -57,5 +59,57 @@ namespace DREA.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public JsonResult Adjuntar(int DocumentoId, HttpPostedFileBase documento)
+        {
+            var respuesta = new ResponseModel
+            {
+                respuesta = true,
+                error = ""
+            };
+
+            if (documento != null)
+            {
+                string adjunto = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(documento.FileName);
+                documento.SaveAs(Server.MapPath("~/Documentos/" + adjunto));
+
+                DocumentoDetBL.Crear(new DocumentoDet {DocumentoId= DocumentoId,Archivo= adjunto });
+
+               
+            }
+            else
+            {
+                respuesta.respuesta = false;
+                respuesta.error = "Debe adjuntar un documento";
+            }
+
+            return Json(respuesta);
+        }
+
+        public PartialViewResult Adjuntos(int DocumentoId) {
+
+            var docs = DocumentoDetBL.Listar(x => x.DocumentoId == DocumentoId);
+            return PartialView(docs);
+        }
+
+        public JsonResult EliminarDocumento(int DocumentoDetId)
+        {
+            var rpt = new ResponseModel()
+            {
+                respuesta = true,
+                error = ""
+            };
+            var doc = DocumentoDetBL.Obtener(DocumentoDetId);
+
+            if (System.IO.File.Exists(Server.MapPath("~/Documentos/" + doc.Archivo)))
+                System.IO.File.Delete(Server.MapPath("~/Documentos/" + doc.Archivo));
+
+            DocumentoDetBL.Eliminar(DocumentoDetId);
+
+            return Json(rpt);
+        }
+
+
     }
 }

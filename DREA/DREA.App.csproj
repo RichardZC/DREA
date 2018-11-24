@@ -163,6 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <Content Include="css\mdb.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="img\doc.png" />
     <Content Include="img\logo.png" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
@@ -235,12 +237,12 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\" />
     <Folder Include="Documentos\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Documento\Editar.cshtml" />
+    <Content Include="Views\Documento\Adjuntos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DREA.Dominio\DREA.Dominio.csproj">
