@@ -38,36 +38,44 @@
                 <!--/. Logo -->
                 <!--Search Form-->
                 @*<li>
-                    <form class="search-form" role="search">
-                        <div class="form-group md-form mt-0 pt-1 waves-light">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                    </form>
-                </li>*@
+                        <form class="search-form" role="search">
+                            <div class="form-group md-form mt-0 pt-1 waves-light">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                        </form>
+                    </li>*@
                 <!--/.Search Form-->
                 <!-- Side navigation links -->
                 <li>
                     <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header waves-effect arrow-r"><i class="fa fa-tachometer"></i> Mantenimiento<i class="fa fa-angle-down rotate-icon"></i></a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li>
-                                        <a href="@Url.Action("Index","Usuario")" class="waves-effect">Usuario</a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("Index","TipoDoc")" class="waves-effect">Tipo Documento</a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("Index","Oficina")" class="waves-effect">Oficina</a>
-                                    </li>                                    
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- Simple link -->
-                        <li><a href="@Url.Action("Index","Documento")" class="collapsible-header waves-effect"><i class="fa fa-bell-o"></i> Documento</a></li>
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a class="collapsible-header waves-effect arrow-r"><i class="fa fa-tachometer"></i> Mantenimiento<i class="fa fa-angle-down rotate-icon"></i></a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li>
+                                            <a href="@Url.Action("Index","Usuario")" class="waves-effect">Usuario</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","TipoDoc")" class="waves-effect">Tipo Documento</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","Oficina")" class="waves-effect">Oficina</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!-- Simple link -->
+                            <li><a href="@Url.Action("Index","Documento")" class="collapsible-header waves-effect"><i class="fa fa-bell-o"></i> Documento</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Login", "Home")" class="collapsible-header waves-effect"><i class="fa fa-calendar-check-o"></i> Iniciar Sesion</a></li>
+                        }
 
-                        
+
+
                     </ul>
                 </li>
                 <!--/. Side navigation links -->
@@ -90,15 +98,23 @@
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
 
                 <!-- Dropdown -->
-                
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Perfil</span>
                     </a>
-                    </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Cerrar Sesión</a>
-                        <a class="dropdown-item" href="#">Mi cuenta</a>
+
+                        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <a class="dropdown-item" href="@Url.Action("Login","Home")">Iniciar Sesión</a>
+                            <a class="dropdown-item" href="#">Mi Cuenta</a>
+                        }
+                        else
+                        {
+                            <a class="dropdown-item" href="@Url.Action("CerrarSesion","Home")">Cerrar Sesión</a>
+
+                        }
                     </div>
                 </li>
 
@@ -106,7 +122,7 @@
             <!--/Navbar links-->
         </nav>
         <!-- /.Navbar -->
-        
+
 
     </header>
     <!--Main Navigation-->

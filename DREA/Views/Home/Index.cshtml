@@ -1,7 +1,70 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model List<DREA.Modelo.Documento>
 
-<div class="jumbotron">
-    <h1>PROYECTO DREA</h1>
-</div>
+
+<section>
+    <div class="md-form">
+        <input type="text" id="txtBuscar" class="form-control">
+        <label for="txtBuscar">Buscar por nombre o Nro de Documento</label>
+    </div>
+    <div class="card">
+        <div class="card-body">
+
+            <!--Table-->
+            <table class="table table-hover">
+
+                <!--Table head-->
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Nro</th>
+                        <th>Fecha</th>
+                        <th>Tipo Documento</th>
+                        <th>Oficina</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.DocumentoId</th>
+                            <td>@item.Nombre</td>
+                            <td>@item.NroDoc</td>
+                            <td>@item.Fecha</td>
+                            <td>@item.TipoDoc.Nombre</td>
+                            <td>@item.Oficina.Nombre</td>
+                            <td>@item.Estado</td>
+                            <td>
+                                <a href="@Url.Action("Ver","Documento",new { id = item.DocumentoId })" class="btn btn-sm btn-indigo">Ver</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+                <!--Table body-->
+            </table>
+            <!--Table-->
+
+        </div>
+    </div>
+
+</section>
+
+@section scripts{
+    <script>
+    $("#txtBuscar").keypress(function () {
+        if (event.which == 13) {
+            event.preventDefault
+
+            location.href = '@Url.Action("Index", "Home")?id=' + $("#txtBuscar").val();
+            //window.open(ruta)
+        }
+    });
+
+    </script>
+
+
+}

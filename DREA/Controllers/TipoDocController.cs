@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DREA.Modelo;
+using Helper;
 
 namespace DREA.Controllers
 {
+    [Autenticado]
     public class TipoDocController : Controller
     {
         private DREAEntities db = new DREAEntities();

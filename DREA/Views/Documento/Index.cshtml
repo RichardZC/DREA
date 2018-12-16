@@ -6,7 +6,10 @@
 
 
 <section>
-
+    <div class="md-form">
+        <input type="text" id="txtBuscar" class="form-control">
+        <label for="txtBuscar">Buscar por nombre o Nro de Documento</label>
+    </div>
     <div class="card">
         <div class="card-body">
 
@@ -53,3 +56,19 @@
     </div>
 
 </section>
+
+@section scripts{
+<script>
+    $("#txtBuscar").keypress(function () {
+        if (event.which == 13) {
+            event.preventDefault
+
+            location.href = '@Url.Action("Index", "Documento")?id=' + $("#txtBuscar").val();
+            //window.open(ruta)
+        }
+    });
+
+    </script>
+    
+    
+    }

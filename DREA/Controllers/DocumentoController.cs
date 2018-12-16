@@ -7,15 +7,27 @@ using System.Web.Mvc;
 using DREA.Dominio;
 using DREA.Modelo;
 using DREA.Models;
+using Helper;
 
 namespace DREA.Controllers
 {
+    [Autenticado]
     public class DocumentoController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string id = "")
         {
-            return View(DocumentoBL.Listar(includeProperties:"TipoDoc,Oficina"));
+            if (string.IsNullOrEmpty(id))
+            {
+                return View(DocumentoBL.Listar(null, x => x.OrderByDescending(y => y.DocumentoId),
+                    includeProperties: "TipoDoc,Oficina").Take(15).ToList());
+            }
+
+            return View(DocumentoBL.Listar(x => x.Nombre.Contains(id) || x.NroDoc.Contains(id),
+                x => x.OrderByDescending(y => y.DocumentoId),
+            includeProperties: "TipoDoc,Oficina"));
         }
+
+
         public ActionResult Crear()
         {
             ViewBag.TipoDocId = new SelectList(TipoDocBL.Listar(), "TipoDocId", "Nombre");
@@ -29,13 +41,21 @@ namespace DREA.Controllers
         {
             doc.Fecha = DateTime.Now;
             doc.Estado = "P";
-            doc.UsuarioId = 1;
+            doc.UsuarioId = SessionHelper.GetUser();
             DocumentoBL.Crear(doc);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Editar(int id)
+        {
+            var doc = DocumentoBL.Obtener(id);
+            ViewBag.TipoDocId = new SelectList(TipoDocBL.Listar(), "TipoDocId", "Nombre");
+            ViewBag.OficinaId = new SelectList(OficinaBL.Listar(), "OficinaId", "Nombre");
+
+            return View(doc);
+        }
+        public ActionResult Ver(int id)
         {
             var doc = DocumentoBL.Obtener(id);
             ViewBag.TipoDocId = new SelectList(TipoDocBL.Listar(), "TipoDocId", "Nombre");
@@ -74,9 +94,17 @@ namespace DREA.Controllers
                 string adjunto = DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(documento.FileName);
                 documento.SaveAs(Server.MapPath("~/Documentos/" + adjunto));
 
-                DocumentoDetBL.Crear(new DocumentoDet {DocumentoId= DocumentoId,Archivo= adjunto });
+                DocumentoDetBL.Crear(new DocumentoDet { DocumentoId = DocumentoId, Archivo = adjunto });
 
-               
+                //var doc = DocumentoBL.Obtener(DocumentoId);
+                //doc.Estado = "T";
+                //DocumentoBL.Actualizar(doc);
+
+                DocumentoBL.ActualizarParcial(
+                    new Documento { DocumentoId = DocumentoId, Estado = "T" },
+                    x => x.Estado
+                    );
+
             }
             else
             {
@@ -87,8 +115,14 @@ namespace DREA.Controllers
             return Json(respuesta);
         }
 
-        public PartialViewResult Adjuntos(int DocumentoId) {
+        public PartialViewResult Adjuntos(int DocumentoId)
+        {
 
+            var docs = DocumentoDetBL.Listar(x => x.DocumentoId == DocumentoId);
+            return PartialView(docs);
+        }
+        public PartialViewResult VerAdjuntos(int DocumentoId)
+        {
             var docs = DocumentoDetBL.Listar(x => x.DocumentoId == DocumentoId);
             return PartialView(docs);
         }
